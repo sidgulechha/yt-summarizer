@@ -45,12 +45,19 @@ function HomeInner() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [error, setError] = useState("");
 
-  // If the history page passes ?url=..., auto-submit on mount
+  // Handle ?reset=1 (logo click) and ?url=... (history page)
   useEffect(() => {
     const urlParam = searchParams?.get("url");
+    const resetParam = searchParams?.get("reset");
+
+    if (resetParam) {
+      handleReset();
+      router.replace("/");
+      return;
+    }
+
     if (urlParam && state === "idle") {
       handleSubmit(urlParam);
-      // Clean up the search param
       router.replace("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

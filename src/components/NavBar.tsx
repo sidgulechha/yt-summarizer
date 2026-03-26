@@ -23,7 +23,7 @@ export default function NavBar() {
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link
-          href="/"
+          href="/?reset=1"
           className="flex items-center gap-2 font-bold text-gray-900 dark:text-white hover:text-red-500 dark:hover:text-red-400 transition-colors"
         >
           <div className="w-7 h-7 rounded-lg bg-red-500 flex items-center justify-center shrink-0">

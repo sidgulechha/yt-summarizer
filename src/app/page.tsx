@@ -45,23 +45,23 @@ function HomeInner() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [error, setError] = useState("");
 
-  // Handle ?reset=1 (logo click) and ?url=... (history page)
+  // ?url=... from history page — only on mount
   useEffect(() => {
     const urlParam = searchParams?.get("url");
-    const resetParam = searchParams?.get("reset");
-
-    if (resetParam) {
-      handleReset();
-      router.replace("/");
-      return;
-    }
-
     if (urlParam && state === "idle") {
       handleSubmit(urlParam);
       router.replace("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ?reset=1 from logo click — re-runs whenever searchParams changes
+  useEffect(() => {
+    if (searchParams?.get("reset")) {
+      handleReset();
+      router.replace("/");
+    }
+  }, [searchParams, router]);
 
   async function handleSubmit(url: string) {
     setState("loading");
